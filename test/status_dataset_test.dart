@@ -7,7 +7,9 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('status_dataset.json is valid', () async {
-    final jsonString = await rootBundle.loadString('assets/status_dataset.json');
+    final jsonString = await rootBundle.loadString(
+      'assets/status_dataset.json',
+    );
     final data = jsonDecode(jsonString) as List<dynamic>;
 
     expect(data, isNotEmpty);
