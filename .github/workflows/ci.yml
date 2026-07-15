@@ -7,7 +7,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,7 +15,63 @@ jobs:
         with:
           flutter-version-file: pubspec.yaml
           channel: stable
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            build/
+            .dart_tool/
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
       - run: flutter pub get
       - run: dart format --set-exit-if-changed .
       - run: flutter analyze
       - run: flutter test --coverage
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage/lcov.info
+          fail_ci_if_error: false
+
+  build-android:
+    runs-on: ubuntu-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: pubspec.yaml
+          channel: stable
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            build/
+            .dart_tool/
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+      - run: flutter pub get
+      - run: flutter build apk --release
+
+  build-ios:
+    runs-on: macos-latest
+    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: pubspec.yaml
+          channel: stable
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            build/
+            .dart_tool/
+          key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+      - run: flutter pub get
+      - run: flutter build ios --release --no-codesign
