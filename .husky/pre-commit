@@ -1,0 +1,5 @@
+dart format .
+
+flutter analyze
+
+flutter test
