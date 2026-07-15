@@ -1,1 +1,5 @@
-npm test
+dart format .
+
+flutter analyze
+
+flutter test
