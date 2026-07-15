@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0'
+          flutter-version: '3.44.6'
           channel: stable
       - uses: actions/cache@v4
         with:
@@ -31,7 +31,7 @@ jobs:
       - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/lcov.info
+          files: coverage9.0'/lcov.info
           fail_ci_if_error: false
 
   build-android:
@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0'
+          flutter-version: '3.44.6'
           channel: stable
       - uses: actions/cache@v4
         with:
@@ -62,7 +62,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.0'
+          flutter-version: '3.44.6'
           channel: stable
       - uses: actions/cache@v4
         with:
