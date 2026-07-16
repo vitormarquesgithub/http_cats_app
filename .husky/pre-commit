@@ -1,5 +1,8 @@
-dart format .
+. "$(dirname "$0")/_/husky.sh"
 
+dart format --set-exit-if-changed . || {
+  echo "❌ dart format found unformatted files. Run 'dart format .' and stage the changes."
+  exit 1
+}
 flutter analyze
-
 flutter test
