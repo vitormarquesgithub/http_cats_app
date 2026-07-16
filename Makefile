@@ -1,15 +1,19 @@
-.PHONY: setup format analyze test build-apk build-ios run
+.PHONY: setup format analyze test generate build-apk build-ios run
 
 setup:
 	flutter pub get
+	$(MAKE) generate
+
+generate:
+	dart run build_runner build --delete-conflicting-outputs
 
 format:
 	dart format --set-exit-if-changed .
 
-analyze:
+analyze: generate
 	flutter analyze
 
-test:
+test: generate
 	flutter test --coverage
 
 build-apk:
