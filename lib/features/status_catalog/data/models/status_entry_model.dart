@@ -13,13 +13,14 @@ class StatusEntryModel {
   });
 
   factory StatusEntryModel.fromJson(Map<String, dynamic> json) {
+    final code = json['code'] as int;
     return StatusEntryModel(
-      code: json['code'] as int,
+      code: code,
       title: json['title'] as String,
-      category: StatusCategory.values.byName(json['category'] as String),
-      description: json['description'] as String,
-      imageUrl: json['image_url'] as String,
-      docUrl: json['doc_url'] as String?,
+      category: _categoryFromLabel(json['category'] as String),
+      description: json['shortDescription'] as String,
+      imageUrl: 'https://http.cat/$code',
+      docUrl: json['docLink'] as String?,
     );
   }
 
@@ -39,6 +40,15 @@ class StatusEntryModel {
       imageUrl: imageUrl,
       docUrl: Value(docUrl),
     );
+  }
+
+  static StatusCategory _categoryFromLabel(String label) {
+    if (label.startsWith('1xx')) return StatusCategory.informational;
+    if (label.startsWith('2xx')) return StatusCategory.success;
+    if (label.startsWith('3xx')) return StatusCategory.redirection;
+    if (label.startsWith('4xx')) return StatusCategory.clientError;
+    if (label.startsWith('5xx')) return StatusCategory.serverError;
+    throw FormatException('Unknown status category label: $label');
   }
 }
 

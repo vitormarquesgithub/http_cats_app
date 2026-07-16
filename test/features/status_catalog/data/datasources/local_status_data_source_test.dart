@@ -11,7 +11,10 @@ void main() {
 
   setUp(() {
     db = AppDatabase(NativeDatabase.memory());
-    dataSource = LocalStatusDataSource(db.statusDao, FakeAssetStatusDataSource());
+    dataSource = LocalStatusDataSource(
+      db.statusDao,
+      FakeAssetStatusDataSource(),
+    );
   });
 
   tearDown(() => db.close());

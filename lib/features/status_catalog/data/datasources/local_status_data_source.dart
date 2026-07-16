@@ -1,7 +1,9 @@
 import 'package:http_cats_app/features/status_catalog/data/datasources/asset_status_data_source.dart';
 import 'package:http_cats_app/features/status_catalog/data/local/daos/status_dao.dart';
 import 'package:http_cats_app/features/status_catalog/data/local/database.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class LocalStatusDataSource {
   LocalStatusDataSource(this._dao, this._assetSource);
 

@@ -29,8 +29,8 @@ void main() {
 
       expect(result.isRight(), true);
       result.match(
-            (failure) => fail('expected Right, got Left($failure)'),
-            (entries) => expect(entries, hasLength(2)),
+        (failure) => fail('expected Right, got Left($failure)'),
+        (entries) => expect(entries, hasLength(2)),
       );
     });
 
@@ -42,8 +42,8 @@ void main() {
       );
 
       result.match(
-            (failure) => fail('expected Right, got Left($failure)'),
-            (entries) {
+        (failure) => fail('expected Right, got Left($failure)'),
+        (entries) {
           expect(entries, hasLength(1));
           expect(entries.first.code, 404);
         },
@@ -56,8 +56,8 @@ void main() {
       final result = await repository.getById(200);
 
       result.match(
-            (failure) => fail('expected Right, got Left($failure)'),
-            (entry) => expect(entry.title, 'OK'),
+        (failure) => fail('expected Right, got Left($failure)'),
+        (entry) => expect(entry.title, 'OK'),
       );
     });
 
@@ -66,11 +66,11 @@ void main() {
 
       expect(result.isLeft(), true);
       result.match(
-            (failure) {
+        (failure) {
           expect(failure, isA<NotFoundFailure>());
           expect((failure as NotFoundFailure).code, 999);
         },
-            (entry) => fail('expected Left, got Right($entry)'),
+        (entry) => fail('expected Left, got Right($entry)'),
       );
     });
   });

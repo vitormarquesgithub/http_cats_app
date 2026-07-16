@@ -36,7 +36,8 @@ class StatusDao extends DatabaseAccessor<AppDatabase> with _$StatusDaoMixin {
   }
 
   Future<StatusEntryRow?> getById(int code) {
-    return (select(statusEntries)..where((t) => t.code.equals(code)))
-        .getSingleOrNull();
+    return (select(
+      statusEntries,
+    )..where((t) => t.code.equals(code))).getSingleOrNull();
   }
 }
