@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:http_cats_app/core/di/injection.dart';
 
-/// Entry point of the HTTP Cats app.
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+
   runApp(const MyApp());
 }
 
-/// Root widget of the application.
 class MyApp extends StatelessWidget {
-  /// Creates the root app widget.
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'HTTP Cats',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: const MyHomePage(title: 'HTTP Cats'),
     );
   }
 }
 
-/// Placeholder home page for the initial scaffold.
-///
-/// This will be replaced by `StatusFeedPage` in `feature/status-feed-ui`.
+// Placeholder home page, replaced by StatusFeedPage in feature/status-feed-ui.
 class MyHomePage extends StatefulWidget {
-  /// Creates the placeholder home page.
   const MyHomePage({required this.title, super.key});
 
-  /// Title shown in the app bar.
   final String title;
 
   @override
@@ -52,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('You have pushed the button this many times:'),
             Text(
