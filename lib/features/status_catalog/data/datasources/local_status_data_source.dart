@@ -3,14 +3,20 @@ import 'package:http_cats_app/features/status_catalog/data/local/daos/status_dao
 import 'package:http_cats_app/features/status_catalog/data/local/database.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@lazySingleton
 class LocalStatusDataSource {
   LocalStatusDataSource(this._dao, this._assetSource);
 
   final StatusDao _dao;
   final AssetStatusDataSource _assetSource;
 
-  Future<void> seedIfEmpty() async {
+  Future<void>? _seedFuture;
+
+  Future<void> seedIfEmpty() {
+    return _seedFuture ??= _seed();
+  }
+
+  Future<void> _seed() async {
     final isEmpty = await _dao.isEmpty();
     if (!isEmpty) return;
     final bundled = await _assetSource.loadBundled();

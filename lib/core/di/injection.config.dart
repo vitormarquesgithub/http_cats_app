@@ -46,7 +46,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i859.StatusDao>(
       () => databaseModule.provideStatusDao(gh<_i265.AppDatabase>()),
     );
-    gh.factory<_i391.LocalStatusDataSource>(
+    gh.lazySingleton<_i391.LocalStatusDataSource>(
       () => _i391.LocalStatusDataSource(
         gh<_i859.StatusDao>(),
         gh<_i910.AssetStatusDataSource>(),

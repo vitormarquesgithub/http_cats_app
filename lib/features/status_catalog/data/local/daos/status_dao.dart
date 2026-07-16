@@ -10,8 +10,8 @@ class StatusDao extends DatabaseAccessor<AppDatabase> with _$StatusDaoMixin {
   StatusDao(super.attachedDatabase);
 
   Future<bool> isEmpty() async {
-    final rows = await select(statusEntries).get();
-    return rows.isEmpty;
+    final row = await (select(statusEntries)..limit(1)).getSingleOrNull();
+    return row == null;
   }
 
   Future<void> insertAll(List<StatusEntryModel> models) {
