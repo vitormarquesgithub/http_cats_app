@@ -5,7 +5,7 @@ setup:
 	$(MAKE) generate
 
 generate:
-	dart run build_runner build --delete-conflicting-outputs
+	dart run build_runner build
 
 format:
 	dart format --set-exit-if-changed .
